@@ -1,0 +1,5 @@
+sources:
+  "0.1.0":
+    url: https://github.com/cross-language-cpp/djinni-support-lib/archive/v0.1.0.tar.gz
+    sha256: "89da6c07db1cff95ad351b5ca070ddcc3061ef89fda18f73954a2ce16419ba03"
+
