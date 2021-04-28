@@ -68,6 +68,7 @@ class DjinniSuppotLib(ConanFile):
     def config_options(self):
         if self.settings.os == "Windows":
             del self.options.fPIC
+        if self.cppcli_support:
             self.options.shared = False
 
     def configure(self):
