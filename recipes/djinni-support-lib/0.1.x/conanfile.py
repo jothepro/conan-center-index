@@ -71,6 +71,25 @@ class DjinniSuppotLib(ConanFile):
         if self.cppcli_support:
             self.options.shared = False
 
+    @property
+    def _supported_compilers(self):
+        return {
+            "gcc": "8",
+            "clang": "7",
+            "Visual Studio": "15",
+            "apple-clang": "10",
+        }
+
+    def configure(self):
+        if self.settings.get_safe("compiler.cppstd"):
+            tools.check_min_cppstd(self, "17")
+        try:
+            minimum_required_compiler_version = self._supported_compilers[str(self.settings.compiler)]
+            if tools.Version(self.settings.compiler.version) < minimum_required_compiler_version:
+                raise ConanInvalidConfiguration("This package requires c++17 support. The current compiler does not support it.")
+        except KeyError:
+            self.output.warn("This recipe has no support for the current compiler. Please consider adding it.")
+
     def configure(self):
         if self.options.shared:
             del self.options.fPIC
